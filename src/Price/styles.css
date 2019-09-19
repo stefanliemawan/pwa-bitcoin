@@ -3,4 +3,6 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  padding: 50px;
+  margin-top: 80px;
 }

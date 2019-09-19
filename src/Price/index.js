@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Pusher from "pusher-js";
+import HttpsRedirect from "react-https-redirect";
 import Input from "./Input";
 import "./styles.css";
 
@@ -29,6 +30,7 @@ export default class Price extends React.Component {
       )
       .then(response => {
         this.setState({ btcprice: response.data.BTC.USD });
+        localStorage.setItem("BTC", response.data.BTC.USD);
       })
       .catch(error => {
         console.log(error);
@@ -39,6 +41,9 @@ export default class Price extends React.Component {
       forceTLS: true
     });
     this.prices = this.pusher.subscribe("coin-prices");
+    if (!navigator.onLine) {
+      this.setState({ btcprice: localStorage.getItem("BTC") });
+    }
     setInterval(() => {
       axios
         .get(
@@ -62,12 +67,14 @@ export default class Price extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <h2>Current Price</h2>
-        <h1>${this.state.btcprice}</h1>
-        <p>1 BTC</p>
-        <Input price={this.state.btcprice} />
-      </div>
+      <HttpsRedirect>
+        <div className="container">
+          <h2>Current Price</h2>
+          <h1>${this.state.btcprice}</h1>
+          <p>1 BTC</p>
+          <Input price={this.state.btcprice} />
+        </div>
+      </HttpsRedirect>
     );
   }
 }

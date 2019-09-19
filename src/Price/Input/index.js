@@ -20,9 +20,10 @@ export default class Input extends React.Component {
   render() {
     console.log(this.state);
     return (
-      <div>
-        <h2>Input Count</h2>
-        <input type="text" onChange={this.handleValue}></input>
+      <div style={{ marginTop: 100 }}>
+        <label>
+          Input Count <input type="text" onChange={this.handleValue}></input>
+        </label>
         <h3>Your value = ${this.state.BTC * this.state.price}</h3>
       </div>
     );
