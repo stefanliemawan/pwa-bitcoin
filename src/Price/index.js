@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Pusher from "pusher-js";
+import Input from "./Input";
 import "./styles.css";
 
 export default class Price extends React.Component {
@@ -65,6 +66,7 @@ export default class Price extends React.Component {
         <h2>Current Price</h2>
         <h1>${this.state.btcprice}</h1>
         <p>1 BTC</p>
+        <Input price={this.state.btcprice} />
       </div>
     );
   }
