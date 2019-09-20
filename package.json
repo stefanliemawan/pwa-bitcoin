@@ -14,7 +14,6 @@
     "pusher-js": "^5.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-https-redirect": "^1.1.0",
     "react-scripts": "3.1.1"
   },
   "scripts": {
@@ -23,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://pwa-bitcoin.stefanliemawan.now.sh/",
+  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": "react-app"
   },
