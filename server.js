@@ -9,14 +9,13 @@ const pusher = new Pusher({
   key: "d39d3aae4dad99a024f8",
   secret: "48e5bad348aa08cad885",
   cluster: "ap1",
-  encrypted: true
+  useTLS: true
 });
 
-// Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname)));
 
-// CORS middleware
 app.use((req, res, next) => {
   // Website you wish to allow to connect
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -37,16 +36,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// Set port to be used by Node.js
 app.set("port", 5000);
 
 app.get("/", (req, res) => {
-  res.send("Welcome");
+  res.sendFile(path.join(__dirname + "/index.html"));
 });
 
-// API route in which the price information will be sent to from the clientside
 app.post("/prices/new", (req, res) => {
-  // Trigger the 'prices' event to the 'coin-prices' channel
   pusher.trigger("coin-prices", "prices", {
     prices: req.body.prices
   });

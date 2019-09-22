@@ -18,7 +18,7 @@ export default class Price extends React.Component {
         console.log(response);
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
       });
   }
 
@@ -32,11 +32,10 @@ export default class Price extends React.Component {
         localStorage.setItem("BTC", response.data.BTC.USD);
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
       });
     this.pusher = new Pusher("d39d3aae4dad99a024f8", {
       cluster: "ap1",
-      encrypted: true,
       forceTLS: true
     });
     this.prices = this.pusher.subscribe("coin-prices");
@@ -50,9 +49,10 @@ export default class Price extends React.Component {
         )
         .then(response => {
           this.sendPricePusher(response.data);
+          localStorage.setItem("BTC", response.data.BTC.USD);
         })
         .catch(error => {
-          console.log(error);
+          console.log(error.response);
         });
     }, 10000);
     this.prices.bind(
